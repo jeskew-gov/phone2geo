@@ -1,3 +1,1 @@
-exclude allutlzd.txt
-exclude npa_report.csv
-exclude AllBlocksAugmentedReport.csv
+prune build
