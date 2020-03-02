@@ -21,6 +21,8 @@
 
 import argparse
 import csv
+import datetime
+import json
 import logging
 import os
 import re
@@ -43,37 +45,63 @@ parser.add_argument('--nxx', dest='npanxx_report_path',
 parser.add_argument('--blocks', dest='block_report_path',
   default='./AllBlocksAugmentedReport.csv', type=str, help='''The path at which
   the Augmented Block report for all states can be found.''')
+parser.add_argument('--manifest-out', dest='import_manifest_path',
+  default='./import_manifest.json', type=str, help='''The path to which the
+  manifest for this import task should be written.''')
+parser.add_argument('--prev-manifest', dest='prev_import_manifest_path',
+  default='./import_manifest.json', type=str, help='''The path at which the most
+  recent import manifest may be found.''')
+
 args = parser.parse_args()
+
+
+import_manifest = {}
+prev_manifest = {}
+
+print(f"Attempting to load previous manifest from {os.path.abspath(args.prev_import_manifest_path)}")
+try:
+  with open(args.prev_import_manifest_path, 'r') as prev_manifest_file:
+    prev_manifest = json.load(prev_manifest_file)
+except OSError as err:
+  print(f"Manifest could not be loaded from {args.prev_import_manifest_path}; proceeding with fresh import")
+
+# Initialize the new manifest
+import_manifest['importDate'] = datetime.datetime.utcnow().isoformat()
+import_manifest['importId'] = str(uuid.uuid4())
+import_manifest['tablesImported'] = {}
 
 # Create an SQLite3 DB into which carrier metadata will be imported at a
 # temporary path
-temporary_db_path = args.output_path + '.' + str(uuid.uuid4()) + '.tmp'
+temporary_db_path = args.output_path + '.' + import_manifest['importId']
 carrier_meta = sqlite3.connect(temporary_db_path)
 
 def import_report(fd, table_name, primary_key_columns, delimiter=','):
   reader = csv.reader(fd, delimiter=delimiter)
   with carrier_meta:
-    headers = next(reader)
-    cols = ', '.join([re.sub('\\W', '_', col.strip()) for col in headers])
+    headers = [re.sub('\\W', '_', col.strip()) for col in next(reader)]
+    import_manifest['tablesImported'][table_name] = headers
+
+    cols = ', '.join(headers)
     key_cols = ', '.join([re.sub('\\W', '_', col) for col in primary_key_columns])
     carrier_meta.execute(f"CREATE TABLE {table_name} ({cols}, PRIMARY KEY({key_cols})) WITHOUT ROWID")
     carrier_meta.executemany(f"INSERT INTO {table_name} VALUES ({', '.join(['?' for col in headers])})", [row[:len(headers)] for row in reader])
 
+print(f'Importing NPA database from {os.path.abspath(args.npa_report_path)}')
 with open(args.npa_report_path, 'r') as npa_report:
   # The first line reports the date the file was generated
   # E.g., "File Date,03/01/2020"
   (_, date_generated) = next(npa_report).split(',')
-  logging.info(f'Importing NPA database generated on {date_generated}')
+  print(f'Importing NPA database generated on {date_generated.strip()}')
 
   # The rest of the file is a standard CSV file
   import_report(npa_report, 'npa', ['NPA_ID'])
 
+print(f'Importing Central Office Code assignment records from {os.path.abspath(args.npanxx_report_path)}')
 with open(args.npanxx_report_path, 'r') as nxx_report:
-  logging.info('Importing Central Office Code assignment records')
   import_report(nxx_report, 'npa_nxx', ['NPA-NXX'], delimiter="\t")
 
+print(f'Importing pooling block assignment records from {os.path.abspath(args.block_report_path)}')
 with open(args.block_report_path, 'r') as block_report:
-  logging.info('Importing pooling block assignment records')
   import_report(block_report, 'blocks', ['NPA', 'NXX', 'X'])
 
 carrier_meta.close()
@@ -83,3 +111,19 @@ try:
 except OSError as err:
   logging.error(err)
   os.remove(temporary_db_path)
+
+for table, columns in import_manifest['tablesImported'].items():
+  prev_columns = prev_manifest.get('tablesImported', {}).get(table, [])
+  if sorted(columns) != sorted(prev_columns):
+    columns_added = [col for col in columns if col not in prev_columns]
+    columns_removed = [col for col in prev_columns if col not in columns]
+    print(f"WARNING: The structure of {table} does not match the last import.")
+    if len(columns_added) > 0:
+      print(f"         The following columns have been added: {', '.join(columns_added)}")
+    if len(columns_removed) > 0:
+      print(f"         The following columns have been removed: {', '.join(columns_removed)}")
+    print(f"         Any code reading from {table} may need to be adjusted to account for these changes")
+    print("")
+
+with open(args.import_manifest_path, 'w') as import_manifest_file:
+  json.dump(import_manifest, import_manifest_file, indent='  ')
