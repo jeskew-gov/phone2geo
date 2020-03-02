@@ -1,0 +1,2 @@
+build/AllBlocksAugmentedReport.csv filter=lfs diff=lfs merge=lfs -text
+build/allutlzd.txt filter=lfs diff=lfs merge=lfs -text
