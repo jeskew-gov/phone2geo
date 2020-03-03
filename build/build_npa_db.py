@@ -84,7 +84,10 @@ def import_report(fd, table_name, primary_key_columns, delimiter=','):
     cols = ', '.join(headers)
     key_cols = ', '.join([re.sub('\\W', '_', col) for col in primary_key_columns])
     carrier_meta.execute(f"CREATE TABLE {table_name} ({cols}, PRIMARY KEY({key_cols})) WITHOUT ROWID")
-    carrier_meta.executemany(f"INSERT INTO {table_name} VALUES ({', '.join(['?' for col in headers])})", [row[:len(headers)] for row in reader])
+    carrier_meta.executemany(
+      f"INSERT INTO {table_name} VALUES ({', '.join(['?' for col in headers])})",
+      [[col.strip() for col in row[:len(headers)]] for row in reader]
+    )
 
 print(f'Importing NPA database from {os.path.abspath(args.npa_report_path)}')
 with open(args.npa_report_path, 'r') as npa_report:
