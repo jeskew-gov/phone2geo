@@ -47,7 +47,7 @@ Use
 This library provides a query mechanism that is designed to be used as a managed
 context.
 
-.. code-block::
+.. code-block:: python
 
   import phone2geo
 
@@ -85,3 +85,6 @@ not 100% reliable, as people do not necessarily change their cell phone numbers
 after moving to another rate center or state.
 * Carrier data may not be accurate for numbers that have been ported to another
 provider.
+* Numbers that belong to a valid area code and exchange have not necessarily
+been assigned to a subscriber. This library does not verify if a number is in
+service, just if it could be a valid number.
