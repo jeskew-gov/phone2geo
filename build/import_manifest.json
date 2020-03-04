@@ -1,6 +1,6 @@
 {
-  "importDate": "2020-03-03T18:06:53.265739",
-  "importId": "0dd373ae-380e-4b4f-816c-c523fe9429fc",
+  "importDate": "2020-03-04T15:50:17.149076",
+  "importId": "970f05e5-a25c-412e-88c5-71081bf801e8",
   "tablesImported": {
     "npa": [
       "NPA_ID",
@@ -47,7 +47,7 @@
       "AssignDate",
       "Initial_Growth",
       "Pooled_Code",
-      "In_Service_File_Updated_02_29_2020"
+      "In_Service_File_Updated_03_04_2020"
     ],
     "blocks": [
       "Region",

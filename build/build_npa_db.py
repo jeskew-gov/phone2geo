@@ -21,6 +21,7 @@
 
 import argparse
 import csv
+import constants
 import datetime
 import json
 import logging
@@ -37,23 +38,23 @@ parser.add_argument('-o', '--output', dest='output_path',
   default='../carrier_meta.sqlite3', type=str, help='''The path to which the
   imported database will be written. Any file at the path provided will be
   overwritten.''')
-parser.add_argument('--npa', dest='npa_report_path', default='./npa_report.csv',
-  type=str, help='''The path at which the NPA Database to import is located.''')
+parser.add_argument('--npa', dest='npa_report_path',
+  default=constants.DEFAULT_NPA_REPORT_PATH, type=str, help='''The path at which
+  the NPA Database to import is located.''')
 parser.add_argument('--nxx', dest='npanxx_report_path',
-  default='./allutlzd.txt', type=str, help='''The path at which the NPA-NXX
-  report to import is located.''')
+  default=constants.DEFAULT_NXX_LISTING_PATH, type=str, help='''The path at
+  which the NPA-NXX report to import is located.''')
 parser.add_argument('--blocks', dest='block_report_path',
-  default='./AllBlocksAugmentedReport.csv', type=str, help='''The path at which
-  the Augmented Block report for all states can be found.''')
+  default=constants.DEFAULT_BLOCKS_LISTING_PATH, type=str, help='''The path at
+  which the Augmented Block report for all states can be found.''')
 parser.add_argument('--manifest-out', dest='import_manifest_path',
-  default='./import_manifest.json', type=str, help='''The path to which the
-  manifest for this import task should be written.''')
+  default=constants.DEFAULT_IMPORT_MANIFEST_PATH, type=str, help='''The path to
+  which the manifest for this import task should be written.''')
 parser.add_argument('--prev-manifest', dest='prev_import_manifest_path',
-  default='./import_manifest.json', type=str, help='''The path at which the most
-  recent import manifest may be found.''')
+  default=constants.DEFAULT_IMPORT_MANIFEST_PATH, type=str, help='''The path at
+  which the most recent import manifest may be found.''')
 
 args = parser.parse_args()
-
 
 import_manifest = {}
 prev_manifest = {}
@@ -84,10 +85,12 @@ def import_report(fd, table_name, primary_key_columns, delimiter=','):
     cols = ', '.join(headers)
     key_cols = ', '.join([re.sub('\\W', '_', col) for col in primary_key_columns])
     carrier_meta.execute(f"CREATE TABLE {table_name} ({cols}, PRIMARY KEY({key_cols})) WITHOUT ROWID")
-    carrier_meta.executemany(
-      f"INSERT INTO {table_name} VALUES ({', '.join(['?' for col in headers])})",
-      [[col.strip() for col in row[:len(headers)]] for row in reader]
-    )
+    for row in reader:
+      value_count = min(len(row), len(headers))
+      carrier_meta.execute(
+        f"INSERT INTO {table_name} ({', '.join(headers[:value_count])}) VALUES ({', '.join(['?' for x in range(0, value_count)])})",
+        [col.strip() for col in row[:value_count]]
+      )
 
 print(f'Importing NPA database from {os.path.abspath(args.npa_report_path)}')
 with open(args.npa_report_path, 'r') as npa_report:

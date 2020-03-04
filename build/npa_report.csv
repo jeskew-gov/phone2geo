@@ -1,4 +1,4 @@
-File Date,03/01/2020
+File Date,03/04/2020
 NPA_ID,type_of_code,ASSIGNABLE,EXPLANATION,RESERVED,ASSIGNED,ASSIGNMENT_DT,USE,LOCATION,COUNTRY,IN_SERVICE,IN_SERVICE_DT,STATUS,PLANNING_LETTERS,"NOTES",OVERLAY,OVERLAY_COMPLEX,PARENT_NPA_ID,SERVICE,TIME_ZONE,AREA_SERVED,MAP,IN_JEOPARDY,RELIEF_PLANNING_IN_PROGRESS,HOME_NPA_LOCAL_CALLS,HOME_NPA_TOLL_CALLS,FOREIGN_NPA_LOCAL_CALLS,FOREIGN_NPA_TOLL_CALLS,PERM_HNPA_LOCAL_CALLS,PERM_HNPA_TOLL_CALLS,PERM_HNPA_FOREIGN_LOCAL_CALLS,"DIALING_PLAN_NOTES"
 200,Easily Recognizable Code,Yes,,No,No,,N,,,N,,,,"",,,,,,,,,No,,,,,,,,""
 201,General Purpose Code,Yes,,No,Yes,01-JAN-47,G,NJ,US,Y,01-JAN-47,,277,"",Yes,201/551,,,E,,277,No,No,10D,10D,1+10D,1+10D,1+10D,NA,NA,"Calls between the 551 and 201 NPAs may be dialed as 10D."
@@ -14,7 +14,7 @@ NPA_ID,type_of_code,ASSIGNABLE,EXPLANATION,RESERVED,ASSIGNED,ASSIGNMENT_DT,USE,L
 211,Easily Recognizable Code,No,N11 Code,No,No,,,,,N,,,,"",,,,,,,,,No,,,,,,,,""
 212,General Purpose Code,Yes,,No,Yes,01-JAN-47,G,NY,US,Y,01-JAN-47,,489 314 175,"",Yes,212/332/646/917,,,E,,489,No,No,1+10D,1+10D,1+10D,1+10D,10D,NA,NA,""
 213,General Purpose Code,Yes,,No,Yes,01-JAN-47,G,CA,US,Y,01-JAN-47,,494,"",Yes,213/323,,,P,,494,No,No,1+10D,1+10D,1+10D,1+10D,NA,NA,NA,""
-214,General Purpose Code,Yes,,No,Yes,27-FEB-20,G,,US,Y,,Active,,"",Yes,214/469/972,214,,C,,,No,Yes,10D,1+10D,10D,1+10D,NA,NA,NA,""
+214,General Purpose Code,Yes,,No,Yes,01-JAN-47,G,TX,US,Y,01-JAN-47,Active,,"",Yes,214/469/972/945,,,C,,,No,Yes,10D,1+10D,10D,1+10D,NA,NA,NA,""
 215,General Purpose Code,Yes,,No,Yes,01-JAN-47,G,PA,US,Y,01-JAN-47,,499 332 274 267 237 134,"",Yes,215/267/445,,,E,,499,No,No,10D,10D,NA,1+10D,1+10D,NA,1+10D,"All calls within and between the 215 and 267 and 484 and 610 NPAs can be dialed as 10D or 1+10D.  Calls to other NPAs must be dialed as 1+10D."
 216,General Purpose Code,Yes,,No,Yes,01-JAN-47,G,OH,US,Y,01-JAN-47,,,"",No,,,,E,,,No,No,7D,1+10D,10D,1+10D,NA,NA,NA,"Carriers must provide permissive 1+10D dialing for Foreign NPA Local Calls in areas where they provide optional EAS"
 217,General Purpose Code,Yes,,No,Yes,01-JAN-47,G,IL,US,Y,01-JAN-47,Active,532,"",Yes,217/447,,,C,,532,Yes,Yes,7D,1+10D,1+10D,1+10D,NA,NA,NA,""
@@ -269,7 +269,7 @@ NPA_ID,type_of_code,ASSIGNABLE,EXPLANATION,RESERVED,ASSIGNED,ASSIGNMENT_DT,USE,L
 466,Easily Recognizable Code,Yes,,No,No,,N,,,N,,,,"",,,,,,,,,No,,,,,,,,""
 467,General Purpose Code,Yes,,No,No,,G,,,N,,,,"",No,,,,,,,No,No,,,,,,,,""
 468,General Purpose Code,Yes,,Yes,No,,G,,CANADA,N,,,,"",No,,,,,,,No,No,,,,,,,,""
-469,General Purpose Code,Yes,,No,Yes,15-OCT-98,G,TX,US,Y,01-JUL-99,Active,161 142,"",Yes,214/469/972,214,,C,,,No,Yes,10D,1+10D,10D,1+10D,NA,NA,NA,""
+469,General Purpose Code,Yes,,No,Yes,15-OCT-98,G,TX,US,Y,01-JUL-99,Active,161 142,"",Yes,214/469/972/945
 470,General Purpose Code,Yes,,No,Yes,13-FEB-01,G,GA,US,Y,26-FEB-10,,269,"",Yes,404/470/678/770,678,,E,,269,No,No,10D,1+10D,10D,1+10D,1+10D,NA,1+10D,""
 471,General Purpose Code,Yes,,Yes,No,,G,,,N,,,,"",No,,,,,,,No,No,,,,,,,,""
 472,General Purpose Code,Yes,,Yes,No,,G,,,N,,,,"",No,,,,,,,No,No,,,,,,,,""
@@ -745,7 +745,7 @@ NPA_ID,type_of_code,ASSIGNABLE,EXPLANATION,RESERVED,ASSIGNED,ASSIGNMENT_DT,USE,L
 942,General Purpose Code,Yes,,Yes,No,,G,,CANADA,N,,,,"",No,,,,,,,No,No,,,,,,,,""
 943,General Purpose Code,Yes,,Yes,No,,G,,,N,,,,"",No,,,,,,,No,No,,,,,,,,""
 944,Easily Recognizable Code,Yes,,No,No,,N,,,N,,,,"",,,,,,,,,No,,,,,,,,""
-945,General Purpose Code,Yes,,Yes,No,,G,,,N,,,,"",No,,,,,,,No,No,,,,,,,,""
+945,General Purpose Code,Yes,,Yes,No,28-FEB-20,G,TX,US,N,,,,"",Yes,214/469/972/945,214,,C,,,No,No,10D,1+10D,10D,1+10D,NA,NA,NA,""
 946,General Purpose Code,Yes,,Yes,No,,G,,,N,,,,"",No,,,,,,,No,No,,,,,,,,""
 947,General Purpose Code,Yes,,No,Yes,02-SEP-99,G,MI,US,Y,07-SEP-02,,320 283 227 209,"",Yes,248/947,248,,E,,283,No,No,10D,1+10D,10D,1+10D,NA,NA,NA,""
 948,General Purpose Code,Yes,,Yes,No,,G,,,N,,,,"",No,,,,,,,No,No,,,,,,,,""
@@ -772,7 +772,7 @@ NPA_ID,type_of_code,ASSIGNABLE,EXPLANATION,RESERVED,ASSIGNED,ASSIGNMENT_DT,USE,L
 969,General Purpose Code,No,Reserved by INC,No,No,,,,,N,,,,"",No,,,,,,,No,No,,,,,,,,""
 970,General Purpose Code,Yes,,No,Yes,21-SEP-94,G,CO,US,Y,02-APR-95,,IL94/09-012,"",No,,303,,M,,,No,No,7D,1+10D,10D,1+10D,10D,NA,NA,""
 971,General Purpose Code,Yes,,No,Yes,01-MAY-99,G,OR,US,Y,01-OCT-00,,359 203 182,"",Yes,503/971,503,,P,,359,No,No,10D,1+10D,10D,1+10D,NA,NA,NA,""
-972,General Purpose Code,Yes,,No,Yes,08-MAR-95,G,TX,US,Y,14-SEP-96,Active,005,"",Yes,214/469/972,214,,C,,,No,Yes,10D,1+10D,10D,1+10D,NA,NA,NA,""
+972,General Purpose Code,Yes,,No,Yes,08-MAR-95,G,TX,US,Y,14-SEP-96,Active,005,"",Yes,214/469/972/945
 973,General Purpose Code,Yes,,No,Yes,23-JAN-97,G,NJ,US,Y,01-JUN-97,,277 151 036,"",Yes,862/973,201,,E,,277,No,No,10D,10D,1+10D,1+10D,1+10D,1+10D,NA,"Calls between the 973 and 862 NPAs can be dialed as 10D."
 974,General Purpose Code,Yes,,No,No,,G,,,N,,,,"",No,,,,,,,No,No,,,,,,,,""
 975,General Purpose Code,Yes,,No,Yes,01-NOV-00,G,MO,US,N,,Suspended,304 280 262,"",Yes,816/975,816,,C,,262,No,Yes,10D,1+10D,10D,1+10D,NA,NA,NA,""
